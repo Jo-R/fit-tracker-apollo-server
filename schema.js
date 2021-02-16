@@ -14,6 +14,10 @@ exports.typeDefs = gql`
     notes: String
   }
 
+  type RunActivities {
+    items: [RunActivity]
+  }
+
   type User {
     id: ID!
     firstName: String
@@ -26,6 +30,11 @@ exports.typeDefs = gql`
 
   type Query {
     runActivity(id: Int): RunActivity
+    runActivitiesForUser(
+      userId: String
+      pageNo: Int
+      pageSize: Int
+    ): RunActivities
     user(id: String): User
   }
 `;

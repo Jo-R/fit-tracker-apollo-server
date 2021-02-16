@@ -9,6 +9,12 @@ class FitTrackerApi extends RESTDataSource {
   async getRun(id) {
     return this.get(`runactivity/${id}`);
   }
+
+  async getRunsForUser(userId, pageNo, pageSize) {
+    return this.get(
+      `runactivity/user/${userId}?pageNo=${pageNo}&pageSize=${pageSize}`
+    );
+  }
 }
 
 module.exports = FitTrackerApi;
