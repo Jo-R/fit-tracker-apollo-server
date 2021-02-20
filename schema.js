@@ -3,7 +3,7 @@ const { gql } = require("apollo-server");
 exports.typeDefs = gql`
   type RunActivity {
     id: Int
-    userId: String
+    user: User
     date: String
     title: String
     distanceMile: Float
@@ -26,15 +26,18 @@ exports.typeDefs = gql`
     email: String
     phoneNumber: String
     userProfile: String
+    activities(pageNo: Int!, pageSize: Int!): RunActivities
+  }
+
+  input UserActivitiesInput {
+    id: String!
+    pageNo: Int!
+    pageSize: Int!
   }
 
   type Query {
-    runActivity(id: Int): RunActivity
-    runActivitiesForUser(
-      userId: String
-      pageNo: Int
-      pageSize: Int
-    ): RunActivities
-    user(id: String): User
+    runActivity(id: Int!): RunActivity
+    runActivitiesForUser(input: UserActivitiesInput): RunActivities
+    user(id: String!): User
   }
 `;

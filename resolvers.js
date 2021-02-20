@@ -1,16 +1,31 @@
 exports.resolvers = {
   Query: {
-    runActivity: async (_source, { id }, { dataSources }) => {
+    runActivity: (_source, { id }, { dataSources }) => {
       return dataSources.fitTrackerApi.getRun(id);
     },
-    runActivitiesForUser: async (
+    runActivitiesForUser: (
       _source,
-      { userId, pageNo, pageSize },
+      { input: { id, pageNo, pageSize } },
       { dataSources }
     ) => {
-      console.log(userId);
-      return dataSources.fitTrackerApi.getRunsForUser(userId, pageNo, pageSize);
+      return dataSources.fitTrackerApi.getRunsForUser(id, pageNo, pageSize);
     },
-    user: (id) => {},
+    user: (_source, { id }, { dataSources }) => {
+      return dataSources.fitTrackerApi.getUser(id);
+    },
+  },
+  RunActivity: {
+    user: (runActivity, args, { dataSources }) => {
+      return dataSources.fitTrackerApi.getUser(runActivity.userId);
+    },
+  },
+  User: {
+    activities: (user, { pageNo, pageSize }, { dataSources }) => {
+      return dataSources.fitTrackerApi.getRunsForUser(
+        user.id,
+        pageNo,
+        pageSize
+      );
+    },
   },
 };

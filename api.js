@@ -15,6 +15,10 @@ class FitTrackerApi extends RESTDataSource {
       `runactivity/user/${userId}?pageNo=${pageNo}&pageSize=${pageSize}`
     );
   }
+
+  async getUser(userId) {
+    return this.get(`user/${userId}`);
+  }
 }
 
 module.exports = FitTrackerApi;
