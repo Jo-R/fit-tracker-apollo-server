@@ -35,9 +35,25 @@ exports.typeDefs = gql`
     pageSize: Int!
   }
 
+  input RunActivityInput {
+    userId: String!
+    date: String!
+    title: String!
+    distanceMile: Float!
+    duration: String!
+    averageHr: Int!
+    maxHr: Int!
+    averagePaceMile: String!
+    notes: String!
+  }
+
   type Query {
     runActivity(id: Int!): RunActivity
     runActivitiesForUser(input: UserActivitiesInput): RunActivities
     user(id: String!): User
+  }
+
+  type Mutation {
+    addRunActivity(input: RunActivityInput): RunActivity
   }
 `;
